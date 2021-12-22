@@ -15,7 +15,7 @@ export const useHomeFetch = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  console.log(searchTerm);
+  const [loadMoreMovies, setLoadMoreMovies] = useState(false);
 
   const fetchMovies = async (page, searchTerm = "") => {
     try {
@@ -26,7 +26,8 @@ export const useHomeFetch = () => {
 
       setData((prev) => ({
         ...movies,
-        results: page > 1 ? [...prev.results, ...movies] : [...movies.results],
+        results:
+          page > 1 ? [...prev.results, ...movies.results] : [...movies.results],
       }));
     } catch (error) {
       setError(true);
@@ -39,5 +40,13 @@ export const useHomeFetch = () => {
     fetchMovies(1, searchTerm);
   }, [searchTerm]);
 
-  return { data, searchTerm, setSearchTerm, loading, error };
+  // Load more movies
+  useEffect(() => {
+    if (!loadMoreMovies) return;
+
+    fetchMovies(data.page + 1, searchTerm);
+    setLoadMoreMovies(false);
+  }, [loadMoreMovies, searchTerm, data.page]);
+
+  return { data, searchTerm, setSearchTerm, setLoadMoreMovies, loading, error };
 };

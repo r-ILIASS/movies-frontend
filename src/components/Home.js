@@ -6,6 +6,7 @@ import HeroImage from "./HeroImage";
 import SearchBar from "./SearchBar";
 import Grid from "./Grid";
 import Thumb from "./Thumb";
+import Button from "./Button";
 import Spinner from "./Spinner";
 
 // Hooks
@@ -15,10 +16,14 @@ import { useHomeFetch } from "../hooks/useHomeFetch";
 import NoImage from "../images/no_image.jpg";
 
 const Home = () => {
-  const { data, searchTerm, setSearchTerm, loading, error } = useHomeFetch();
+  const { data, searchTerm, setSearchTerm, setLoadMoreMovies, loading, error } =
+    useHomeFetch();
   const { results } = data;
 
   console.log(data);
+
+  if (error) return <div>Something went wrong.</div>;
+
   return (
     <>
       {!searchTerm && results[0] ? (
@@ -43,6 +48,13 @@ const Home = () => {
           />
         ))}
       </Grid>
+      {loading && <Spinner />}
+      {data.page < data.total_pages && !loading && (
+        <Button
+          text="Load More Movies"
+          callback={() => setLoadMoreMovies(true)}
+        />
+      )}
     </>
   );
 };
