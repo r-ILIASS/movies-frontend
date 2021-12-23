@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 // Config
 import { IMAGE_BASE_URL, POSTER_SIZE } from "../config";
 // Components
+import BreadCrumb from "./BreadCrumb";
 import Grid from "./Grid";
 import Spinner from "./Spinner";
 // Hooks
@@ -16,7 +17,14 @@ const Movie = () => {
 
   console.log(data);
 
-  return <div>{`movie: ${movieId}`}</div>;
+  if (loading) return <Spinner />;
+  if (error) return <div>Something went wrong.</div>;
+
+  return (
+    <>
+      <BreadCrumb movieTitle={data.original_title} />
+    </>
+  );
 };
 
 export default Movie;
