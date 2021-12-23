@@ -5,6 +5,7 @@ import { IMAGE_BASE_URL, POSTER_SIZE } from "../config";
 // Components
 import BreadCrumb from "./BreadCrumb";
 import MovieInfo from "./MovieInfo";
+import MovieInfoBar from "./MovieInfoBar";
 import Grid from "./Grid";
 import Spinner from "./Spinner";
 // Hooks
@@ -25,6 +26,7 @@ const Movie = () => {
     <>
       <BreadCrumb movieTitle={data.original_title} />
       <MovieInfo movie={data} />
+      <MovieInfoBar time={data.runtime} budget={data.budget} revenue={data.revenue} />
     </>
   );
 };
