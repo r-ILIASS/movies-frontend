@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 // API
 import API from "../API";
+// Helpers
+import { isPersistedState } from "../helpers";
 
 // Initial state structured like the data we get from the TMDBserver
 const initialState = {
@@ -35,7 +37,18 @@ export const useHomeFetch = () => {
     setLoading(false);
   };
 
+  // Initial & search requests
   useEffect(() => {
+    if (!searchTerm) {
+      // read movie data from session storage
+      const sessionState = isPersistedState("homeState");
+
+      if (sessionState) {
+        setData(sessionState);
+        return;
+      }
+    }
+
     setData(initialState);
     fetchMovies(1, searchTerm);
   }, [searchTerm]);
@@ -47,6 +60,11 @@ export const useHomeFetch = () => {
     fetchMovies(data.page + 1, searchTerm);
     setLoadMoreMovies(false);
   }, [loadMoreMovies, searchTerm, data.page]);
+
+  // Write to session storage
+  useEffect(() => {
+    if (!searchTerm) sessionStorage.setItem("homeState", JSON.stringify(data));
+  }, [searchTerm, data]);
 
   return { data, searchTerm, setSearchTerm, setLoadMoreMovies, loading, error };
 };
