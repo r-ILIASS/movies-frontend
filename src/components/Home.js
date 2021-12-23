@@ -20,8 +20,6 @@ const Home = () => {
     useHomeFetch();
   const { results } = data;
 
-  console.log(data);
-
   if (error) return <div>Something went wrong.</div>;
 
   return (

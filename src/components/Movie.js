@@ -18,8 +18,6 @@ const Movie = () => {
   const { movieId } = useParams();
   const { data, loading, error } = useMovieFetch(movieId);
 
-  console.log(data);
-
   if (loading) return <Spinner />;
   if (error) return <div>Something went wrong.</div>;
 
