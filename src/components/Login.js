@@ -50,7 +50,7 @@ const Login = () => {
 
   return (
     <Wrapper>
-      {error && <div>Something went wrong</div>}
+      {error && <div className="error">Something went wrong</div>}
       <label>Username:</label>
       <input
         type="text"
