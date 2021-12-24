@@ -27,10 +27,8 @@ const Login = () => {
         password
       );
 
-      console.log(sessionId);
-
       setUser({
-        sessionId: sessionId.sessionId,
+        sessionId: sessionId.session_id,
         username,
       });
 
