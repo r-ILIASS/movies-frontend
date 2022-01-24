@@ -17,14 +17,9 @@ const Header = () => {
         <Link to="/">
           <LogoImg src={logo} alt="movie-logo" />
         </Link>
-        {user ? (
-          <span>Logged in as: {user.username}</span>
-        ) : (
-          <Link to="/login">
-            <span>Log In</span>
-          </Link>
-        )}
-        <TMDBLogoImg src={TMDBLogo} alt="tmdb-logo" />
+        <a href="https://www.themoviedb.org/" target="_blank">
+          <TMDBLogoImg src={TMDBLogo} alt="tmdb-logo" />
+        </a>
       </Content>
     </Wrapper>
   );
